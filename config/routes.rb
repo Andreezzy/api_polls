@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: "json" } do
     namespace :v1 do
       resources :users, only: [:create]
-      resources :polls, controller: "my_polls", except: [:edit, :new]
+      resources :polls, controller: "my_polls", except: [:edit, :new] do
+        resources :questions, except: [:new, :edit]
+      end
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

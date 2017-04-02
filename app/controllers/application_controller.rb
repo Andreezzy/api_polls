@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   #before_action :authenticate
 
+  protected
+
   def authenticate
     token_str = params[:token]
     token = Token.find_by(token: token_str)
@@ -14,4 +16,11 @@ class ApplicationController < ActionController::Base
       @current_user = token.user
     end
   end
+
+  def authenticate_owner(owner)
+    if owner != @current_user
+      render json: { errors: "No tienes autorizado editar este recurso" }, status: 401
+    end
+  end
+
 end

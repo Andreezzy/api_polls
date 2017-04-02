@@ -28,13 +28,6 @@ class Api::V1::MyPollsController < ApplicationController
     render json: { message: "Fue eliminada la encuesta" }
   end
 
-  protected
-  def authenticate_owner(owner)
-    if owner != @current_user
-      render json: { errors: "No tienes autorizado modificar esa encuesta" }, status: 401
-    end
-  end
-
   private
   def set_poll
     @poll = MyPoll.find(params[:id])
